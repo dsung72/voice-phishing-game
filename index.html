@@ -1194,7 +1194,7 @@
     .mode-intro .section-title { margin:0 0 5px; font-size:24px; line-height:1.3; }
     .mode-intro .section-desc { font-size:14px; line-height:1.5; }
     .mode-list { gap:10px; }
-    .mode-card { padding:16px 14px; border:1px solid #e9edf2; border-radius:18px; }
+    .mode-card { min-height:144px; display:flex; flex-direction:column; justify-content:center; padding:24px 14px; border:1px solid #e9edf2; border-radius:18px; }
     .mode-card.featured { border-color:#cde2fc; }
     .mode-card-head { display:grid; grid-template-columns:minmax(0,1fr) auto 10px; align-items:center; gap:8px; }
     .mode-card-heading { min-width:0; display:flex; align-items:center; gap:8px; }
@@ -1207,21 +1207,58 @@
     .mode-card .mode-arrow { font-size:23px; }
 
     /* General mode is a message conversation, without a nested phone frame. */
+    .general-mode { --general-text-size:20px; }
     .general-mode .game-hud { flex:0 0 auto; }
     .general-mode .game-main { padding:14px 16px 12px; }
     .general-mode .scenario-title { margin:0 0 12px; color:#596574; font-size:14px; line-height:1.45; font-weight:400; letter-spacing:-.025em; word-break:keep-all; overflow-wrap:anywhere; }
-    .easy-chat { overflow:hidden; border:1px solid #e0e6ed; border-radius:18px; background:#edf3f8; box-shadow:0 3px 12px #23334306; }
-    .easy-chat-header { display:flex; align-items:center; gap:10px; min-height:58px; padding:10px 14px; border-bottom:1px solid #e4eaf1; background:#fff; }
-    .easy-chat-avatar { display:grid; place-items:center; width:32px; height:32px; flex:0 0 auto; font-size:23px; }
-    .easy-chat-header strong { min-width:0; flex:1; font-size:16px; line-height:1.4; font-weight:600; overflow-wrap:anywhere; }
-    .easy-chat-channel { flex:0 0 auto; font-size:17px; }
-    .easy-chat-thread { padding:16px 14px 20px; }
-    .easy-chat-bubble { width:fit-content; max-width:100%; padding:13px 14px; border-radius:4px 16px 16px 16px; background:#fff; color:#263541; font-size:17px; line-height:1.65; font-weight:400; letter-spacing:-.02em; overflow-wrap:anywhere; }
-    .easy-chat-bubble + .easy-chat-bubble { margin-top:10px; }
-    .easy-chat-bubble .link-fake { display:inline; color:#1768c5; font-weight:600; word-break:break-all; }
-    .easy-chat-messenger { background:#dce8ef; }
-    .easy-chat-messenger .easy-chat-header { background:#f3f7fa; }
-    .easy-chat-call { background:#edf2fc; }
+    /* 전문가 모드의 문자·메신저·통화 형태를 큰 글씨에 맞춰 구성 */
+    .general-mode .scene-ui { border:1px solid #dbe2e9; border-radius:22px; box-shadow:0 5px 18px rgba(35,51,67,.07); }
+    .general-mode .os-phone { background:#fff; }
+    .general-mode .os-phone .message-nav { min-height:64px; grid-template-columns:18px minmax(0,1fr) 40px; gap:8px; padding:10px 13px; }
+    .general-mode .os-phone .message-back { font-size:29px; }
+    .general-mode .os-phone .message-contact { flex-direction:row; gap:9px; text-align:left; }
+    .general-mode .os-phone .message-contact > span:last-child { min-width:0; }
+    .general-mode .os-phone .message-avatar { width:36px; height:36px; font-size:21px; }
+    .general-mode .os-phone .message-contact strong { font-size:18px; font-weight:650; }
+    .general-mode .os-phone .message-nav-actions { font-size:18px; letter-spacing:2px; }
+    .general-mode .os-phone .message-thread { min-height:0; padding:18px 14px 14px; background:#fff; }
+    .general-mode .os-phone .message-bubble { max-width:100%; margin:0 0 8px; padding:14px 15px; font-size:var(--general-text-size); line-height:1.6; font-weight:400; letter-spacing:-.025em; overflow-wrap:anywhere; }
+    .general-mode .os-phone.galaxy .message-bubble { background:#edf2f8; color:#263541; border-radius:6px 19px 19px; }
+    .general-mode .os-phone .message-time { margin:0 0 0 5px; color:#647386; font-size:11px; }
+    .general-mode .os-phone .message-compose { grid-template-columns:22px 1fr 22px; gap:7px; padding:8px 12px; font-size:18px; }
+    .general-mode .os-phone .compose-field { padding:7px 12px; font-size:12px; }
+    .general-mode .os-phone .link-fake { color:#1768c5; background:transparent; font-weight:600; text-decoration-thickness:1px; }
+    .family-chat { background:#b8cddd; color:#263541; }
+    .family-chat-head { display:grid; grid-template-columns:20px minmax(0,1fr) 48px; align-items:center; gap:10px; min-height:62px; padding:12px 14px; border-bottom:1px solid rgba(38,53,65,.08); }
+    .family-chat-back { font-size:29px; line-height:1; }
+    .family-chat-head strong { font-size:20px; line-height:1.4; font-weight:650; }
+    .family-chat-actions { font-size:21px; text-align:right; }
+    .family-chat-thread { padding:20px 13px 22px; }
+    .family-chat-row { display:grid; grid-template-columns:34px minmax(0,1fr); gap:9px; align-items:start; }
+    .family-chat-row + .family-chat-row { margin-top:12px; }
+    .family-chat-avatar { display:grid; place-items:center; width:34px; height:36px; border-radius:12px; background:#edf3f8; font-size:24px; }
+    .family-chat-bubble { position:relative; width:fit-content; max-width:100%; padding:13px 15px; border-radius:4px 16px 16px; background:#fff; box-shadow:0 2px 3px rgba(44,64,81,.07); font-size:var(--general-text-size); line-height:1.6; font-weight:400; letter-spacing:-.025em; white-space:pre-line; overflow-wrap:anywhere; }
+    .family-chat-bubble::before { position:absolute; top:10px; left:-6px; width:0; height:0; border-top:6px solid #fff; border-left:6px solid transparent; content:""; }
+    .family-chat-time { margin-top:6px; color:#4b6275; font-size:11px; }
+    .family-chat-compose { display:grid; grid-template-columns:22px minmax(0,1fr) 34px; align-items:center; gap:9px; padding:8px 12px; background:#fff; color:#7b8793; }
+    .family-chat-compose > span:first-child { font-size:24px; }
+    .family-chat-field { display:flex; justify-content:space-between; align-items:center; min-height:32px; padding:5px 11px; border:1px solid #e6e9ed; border-radius:16px; background:#f8f9fa; font-size:12px; }
+    .family-chat-field span { font-size:19px; }
+    .family-chat-send { display:grid; place-items:center; height:32px; border-radius:9px; background:#ffe34d; color:#4b4120; font-size:20px; }
+    .general-mode .general-call { min-height:0; padding:18px 16px 15px; animation:none; background:radial-gradient(circle at 75% 0,#435c7a 0,#263a52 42%,#172637 100%); }
+    .general-mode .general-call.bank { background:radial-gradient(circle at 75% 0,#3d7a89 0,#245664 42%,#143440 100%); }
+    .general-call-head { display:grid; grid-template-columns:48px minmax(0,1fr); align-items:center; gap:12px; text-align:left; }
+    .general-call .caller-seal { width:48px; height:48px; margin:0; border-radius:50%; font-size:26px; }
+    .general-call .general-call-head h3 { margin:0 0 5px; font-size:20px; line-height:1.4; font-weight:600; overflow-wrap:anywhere; }
+    .general-call-status { display:flex; align-items:center; gap:8px; color:#d0e6e0; font-size:12px; }
+    .general-call-status::before { width:6px; height:6px; border-radius:50%; background:#9ce3bd; content:""; }
+    .general-call .call-duration { margin:0; color:#d0e6e0; font-size:12px; }
+    .general-call .live-transcript { margin:16px 0; padding:15px; border:1px solid rgba(255,255,255,.14); border-radius:16px; background:rgba(255,255,255,.1); color:#fff; font-size:var(--general-text-size); line-height:1.65; font-weight:400; letter-spacing:-.025em; overflow-wrap:anywhere; }
+    .general-call .call-controls { grid-template-columns:repeat(4,1fr); gap:8px; }
+    .general-call .call-control { gap:4px; font-size:11px; color:#dbe4ed; }
+    .general-call .control-dot { width:36px; height:36px; font-size:18px; }
+    .general-call .hangup { width:36px; height:36px; margin:0; box-shadow:none; }
+    .general-call .hangup svg { width:22px; height:22px; }
     .general-mode .game-choices { padding:12px 16px max(12px,env(safe-area-inset-bottom)); }
     .general-mode .choice-prompt { gap:3px; margin-bottom:9px; }
     .general-mode .choice-prompt strong { font-size:17px; line-height:1.4; font-weight:700; }
@@ -1241,7 +1278,7 @@
       .mode-wrap { padding:6px 14px max(16px,env(safe-area-inset-bottom)); }
       .mode-intro { margin:4px 0 16px; }
       .mode-intro .section-title { font-size:22px; }
-      .mode-card { padding:14px 12px; }
+      .mode-card { padding:22px 12px; }
       .mode-card h3 { font-size:17px; }
       .mode-card-heading { gap:5px; }
       .mode-card .mode-icon { width:24px; font-size:21px; }
@@ -1266,17 +1303,30 @@
       .mode-guide-character { width:42px; height:60px; }
       .mode-intro .section-title { font-size:20px; }
       .general-mode .game-main { padding:10px 12px; }
-      .easy-chat-thread { padding:12px 10px 14px; }
-      .easy-chat-bubble { padding:11px 12px; font-size:16px; line-height:1.6; }
+      .general-mode { --general-text-size:19px; }
+      .general-mode .os-phone .message-nav { grid-template-columns:16px minmax(0,1fr) 30px; gap:6px; padding:10px; }
+      .general-mode .os-phone .message-avatar { width:30px; height:30px; font-size:19px; }
+      .general-mode .os-phone .message-contact strong { font-size:17px; }
+      .general-mode .os-phone .message-nav-actions { font-size:16px; letter-spacing:0; }
+      .general-mode .os-phone .message-thread { padding:14px 10px 12px; }
+      .general-mode .os-phone .message-bubble { padding:12px; }
+      .family-chat-thread { padding:15px 10px 18px; }
+      .family-chat-row { grid-template-columns:28px minmax(0,1fr); gap:8px; }
+      .family-chat-avatar { width:28px; height:32px; font-size:21px; }
+      .family-chat-bubble { padding:12px; }
+      .general-mode .general-call { padding:14px 12px; }
+      .general-call .general-call-head h3 { font-size:19px; }
+      .general-call .live-transcript { margin:13px 0; padding:12px; line-height:1.6; }
       .general-mode .easy-choice-btn { min-height:96px; }
     }
     @media (max-width:791px) and (max-height:620px) {
       .mode-intro { margin-bottom:12px; }
       .mode-guide-character { height:52px; }
-      .mode-card { padding-top:11px; padding-bottom:11px; }
+      .mode-card { min-height:132px; padding-top:20px; padding-bottom:20px; }
       .general-mode .game-main { padding-top:10px; padding-bottom:8px; }
-      .easy-chat-header { min-height:48px; padding:8px 12px; }
-      .easy-chat-thread { padding:12px 10px 14px; }
+      .general-mode .os-phone .message-nav, .family-chat-head { min-height:54px; padding-top:8px; padding-bottom:8px; }
+      .family-chat-thread { padding-top:14px; padding-bottom:14px; }
+      .general-call .live-transcript { margin-top:12px; margin-bottom:12px; }
       .general-mode .easy-choice-btn { min-height:88px; padding:8px; }
       .general-mode .easy-choice-symbol { font-size:38px; }
       .general-mode .choice-prompt { margin-bottom:7px; }
@@ -2149,7 +2199,7 @@
       const platform = iphone ? "iphone" : "galaxy";
       const time = s.sender.includes("교통") ? "12:44" : "9:18";
       const bubbles = s.messages.map((m,i)=>`<div class="message-bubble">${richText(m)}</div><div class="message-time">${time}${i===s.messages.length-1?' · 읽지 않음':''}</div>`).join("");
-      return `<div class="scene-ui os-phone ${platform}${easy?' easy-realistic':''}" aria-label="${iphone?'아이폰':'갤럭시'} 문자 메시지 화면">${statusBar()}<div class="message-nav"><span class="message-back">‹</span><div class="message-contact"><span class="message-avatar">${s.avatar}</span><span><strong>${escapeHtml(s.sender)}</strong><small>${iphone?'연락처에 없음':'발신자 정보 확인 안 됨'}</small></span></div><span class="message-nav-actions">☎ ⓘ</span></div><div class="message-thread"><div class="message-day">오늘 · ${escapeHtml(s.context)}</div>${bubbles}</div><div class="message-compose"><span>＋</span><div class="compose-field">메시지 입력</div><span>🎙</span></div></div>`;
+      return `<div class="scene-ui os-phone ${platform}${easy?' easy-realistic':''}" aria-label="${iphone?'아이폰':'갤럭시'} 문자 메시지 화면">${easy?'':statusBar()}<div class="message-nav"><span class="message-back" aria-hidden="true">‹</span><div class="message-contact"><span class="message-avatar">${s.avatar}</span><span><strong>${escapeHtml(s.sender)}</strong>${easy?'':`<small>${iphone?'연락처에 없음':'발신자 정보 확인 안 됨'}</small>`}</span></div><span class="message-nav-actions" aria-hidden="true">☎ ⓘ</span></div><div class="message-thread">${easy?'':`<div class="message-day">오늘 · ${escapeHtml(s.context)}</div>`}${bubbles}</div><div class="message-compose" aria-hidden="true"><span>＋</span><div class="compose-field">메시지 입력</div><span>🎙</span></div></div>`;
     }
 
     function renderCallUI(s, easy=false) {
@@ -2436,12 +2486,20 @@
       return meta[s.type] || {label:"상황 확인",status:"주의 필요",icon:typeById(s.type)?.icon || "⚠️"};
     }
 
+    function renderFamilyChatUI(s) {
+      const messages=s.messages.map((message,i)=>`<div class="family-chat-row"><span class="family-chat-avatar" aria-hidden="true">${i?'':s.avatar}</span><div><div class="family-chat-bubble">${richText(message)}</div>${i===s.messages.length-1?'<div class="family-chat-time">오전 9:18</div>':''}</div></div>`).join("");
+      return `<section class="scene-ui family-chat" aria-label="가족 메신저 대화 화면"><header class="family-chat-head"><span class="family-chat-back" aria-hidden="true">‹</span><strong>${escapeHtml(s.sender)}</strong><span class="family-chat-actions" aria-hidden="true">⌕ ☰</span></header><div class="family-chat-thread">${messages}</div><div class="family-chat-compose" aria-hidden="true"><span>＋</span><div class="family-chat-field">메시지 입력<span>☺</span></div><span class="family-chat-send">↑</span></div></section>`;
+    }
+
+    function renderEasyCallUI(s) {
+      const theme=/카드|은행/.test(s.sender)?"bank":"institution";
+      return `<section class="scene-ui call-ui general-call ${theme}" aria-label="수신 전화 통화 화면"><header class="general-call-head"><div class="caller-seal" aria-hidden="true">${s.avatar}</div><div><h3>${escapeHtml(s.sender)}</h3><div class="general-call-status"><span>통화 중</span><span class="call-duration" aria-live="off">00:00</span></div></div></header><div class="live-transcript">${richText(s.messages.join("\n"))}</div><div class="call-controls" aria-hidden="true"><div class="call-control"><span class="control-dot">♩</span><span>소리 끔</span></div><div class="call-control"><span class="control-dot">⌨</span><span>키패드</span></div><div class="call-control"><span class="control-dot">🔊</span><span>스피커</span></div><div class="call-control"><span class="hangup"><svg viewBox="0 0 24 24"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .4-.24.76-.6.92-.98.44-1.88 1.02-2.67 1.7-.18.16-.42.25-.67.25-.28 0-.53-.11-.71-.29L.29 12.94A.99.99 0 0 1 0 12.23c0-.28.11-.53.29-.71C3.34 8.71 7.45 7 12 7s8.66 1.71 11.71 4.52c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.46 2.46c-.18.18-.43.29-.71.29-.25 0-.49-.09-.67-.25-.79-.68-1.69-1.26-2.67-1.7a1 1 0 0 1-.6-.92v-3.1A14.8 14.8 0 0 0 12 9z" fill="currentColor"/></svg></span><span>통화 종료</span></div></div></section>`;
+    }
+
     function renderEasyScenarioUI(s) {
-      const isCall=s.type==="voice";
-      const kind=isCall?"call":s.type==="messenger"?"messenger":"sms";
-      const label=isCall?"전화 통화 내용":s.type==="messenger"?"메신저 대화":"문자 메시지";
-      const messages=s.messages.map(message=>`<div class="easy-chat-bubble">${richText(message)}</div>`).join("");
-      return `<section class="easy-chat easy-chat-${kind}" aria-label="${label}"><header class="easy-chat-header"><span class="easy-chat-avatar" aria-hidden="true">${s.avatar}</span><strong>${escapeHtml(s.sender)}</strong><span class="easy-chat-channel" aria-label="${label}">${isCall?'📞':'💬'}</span></header><div class="easy-chat-thread">${messages}</div></section>`;
+      if(s.type==="voice") return renderEasyCallUI(s);
+      if(s.type==="messenger") return renderFamilyChatUI(s);
+      return renderMessageUI(s,true);
     }
 
     function scenarioVisual(s) {
@@ -2667,4 +2725,3 @@
   </script>
 </body>
 </html>
-
