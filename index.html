@@ -1222,7 +1222,7 @@
     .general-mode .os-phone .message-contact strong { font-size:18px; font-weight:650; }
     .general-mode .os-phone .message-nav-actions { font-size:18px; letter-spacing:2px; }
     .general-mode .os-phone .message-thread { min-height:0; padding:18px 14px 14px; background:#fff; }
-    .general-mode .os-phone .message-bubble { max-width:100%; margin:0 0 8px; padding:14px 15px; font-size:var(--general-text-size); line-height:1.6; font-weight:400; letter-spacing:-.025em; overflow-wrap:anywhere; }
+    .general-mode .os-phone .message-bubble { max-width:100%; margin:0 0 8px; padding:14px 15px; font-size:var(--general-text-size); line-height:1.6; font-weight:400; letter-spacing:-.025em; word-break:keep-all; overflow-wrap:anywhere; }
     .general-mode .os-phone.galaxy .message-bubble { background:#edf2f8; color:#263541; border-radius:6px 19px 19px; }
     .general-mode .os-phone .message-time { margin:0 0 0 5px; color:#647386; font-size:11px; }
     .general-mode .os-phone .message-compose { grid-template-columns:22px 1fr 22px; gap:7px; padding:8px 12px; font-size:18px; }
@@ -1237,7 +1237,7 @@
     .family-chat-row { display:grid; grid-template-columns:34px minmax(0,1fr); gap:9px; align-items:start; }
     .family-chat-row + .family-chat-row { margin-top:12px; }
     .family-chat-avatar { display:grid; place-items:center; width:34px; height:36px; border-radius:12px; background:#edf3f8; font-size:24px; }
-    .family-chat-bubble { position:relative; width:fit-content; max-width:100%; padding:13px 15px; border-radius:4px 16px 16px; background:#fff; box-shadow:0 2px 3px rgba(44,64,81,.07); font-size:var(--general-text-size); line-height:1.6; font-weight:400; letter-spacing:-.025em; white-space:pre-line; overflow-wrap:anywhere; }
+    .family-chat-bubble { position:relative; width:fit-content; max-width:100%; padding:13px 15px; border-radius:4px 16px 16px; background:#fff; box-shadow:0 2px 3px rgba(44,64,81,.07); font-size:var(--general-text-size); line-height:1.6; font-weight:400; letter-spacing:-.025em; word-break:keep-all; white-space:pre-line; overflow-wrap:anywhere; }
     .family-chat-bubble::before { position:absolute; top:10px; left:-6px; width:0; height:0; border-top:6px solid #fff; border-left:6px solid transparent; content:""; }
     .family-chat-time { margin-top:6px; color:#4b6275; font-size:11px; }
     .family-chat-compose { display:grid; grid-template-columns:22px minmax(0,1fr) 34px; align-items:center; gap:9px; padding:8px 12px; background:#fff; color:#7b8793; }
@@ -1253,7 +1253,7 @@
     .general-call-status { display:flex; align-items:center; gap:8px; color:#d0e6e0; font-size:12px; }
     .general-call-status::before { width:6px; height:6px; border-radius:50%; background:#9ce3bd; content:""; }
     .general-call .call-duration { margin:0; color:#d0e6e0; font-size:12px; }
-    .general-call .live-transcript { margin:16px 0; padding:15px; border:1px solid rgba(255,255,255,.14); border-radius:16px; background:rgba(255,255,255,.1); color:#fff; font-size:var(--general-text-size); line-height:1.65; font-weight:400; letter-spacing:-.025em; overflow-wrap:anywhere; }
+    .general-call .live-transcript { margin:16px 0; padding:15px; border:1px solid rgba(255,255,255,.14); border-radius:16px; background:rgba(255,255,255,.1); color:#fff; font-size:var(--general-text-size); line-height:1.65; font-weight:400; letter-spacing:-.025em; word-break:keep-all; overflow-wrap:anywhere; }
     .general-call .call-controls { grid-template-columns:repeat(4,1fr); gap:8px; }
     .general-call .call-control { gap:4px; font-size:11px; color:#dbe4ed; }
     .general-call .control-dot { width:36px; height:36px; font-size:18px; }
@@ -1297,6 +1297,7 @@
       .stage-card small { font-size:12px; }
     }
     @media (max-width:360px) {
+      .mode-card { min-height:168px; }
       .mode-card .mode-tags { flex-direction:column; align-items:flex-end; gap:3px; }
       .mode-card .mode-tag { padding:3px 6px; }
       .mode-intro { grid-template-columns:42px minmax(0,1fr); gap:8px; }
@@ -1322,7 +1323,7 @@
     @media (max-width:791px) and (max-height:620px) {
       .mode-intro { margin-bottom:12px; }
       .mode-guide-character { height:52px; }
-      .mode-card { min-height:132px; padding-top:20px; padding-bottom:20px; }
+      .mode-card { padding-top:22px; padding-bottom:22px; }
       .general-mode .game-main { padding-top:10px; padding-bottom:8px; }
       .general-mode .os-phone .message-nav, .family-chat-head { min-height:54px; padding-top:8px; padding-bottom:8px; }
       .family-chat-thread { padding-top:14px; padding-bottom:14px; }
@@ -2199,7 +2200,7 @@
       const platform = iphone ? "iphone" : "galaxy";
       const time = s.sender.includes("교통") ? "12:44" : "9:18";
       const bubbles = s.messages.map((m,i)=>`<div class="message-bubble">${richText(m)}</div><div class="message-time">${time}${i===s.messages.length-1?' · 읽지 않음':''}</div>`).join("");
-      return `<div class="scene-ui os-phone ${platform}${easy?' easy-realistic':''}" aria-label="${iphone?'아이폰':'갤럭시'} 문자 메시지 화면">${easy?'':statusBar()}<div class="message-nav"><span class="message-back" aria-hidden="true">‹</span><div class="message-contact"><span class="message-avatar">${s.avatar}</span><span><strong>${escapeHtml(s.sender)}</strong>${easy?'':`<small>${iphone?'연락처에 없음':'발신자 정보 확인 안 됨'}</small>`}</span></div><span class="message-nav-actions" aria-hidden="true">☎ ⓘ</span></div><div class="message-thread">${easy?'':`<div class="message-day">오늘 · ${escapeHtml(s.context)}</div>`}${bubbles}</div><div class="message-compose" aria-hidden="true"><span>＋</span><div class="compose-field">메시지 입력</div><span>🎙</span></div></div>`;
+      return `<div class="scene-ui os-phone ${platform}${easy?' easy-realistic':''}" aria-label="${iphone?'아이폰':'갤럭시'} 문자 메시지 화면">${easy?'':statusBar()}<div class="message-nav"><span class="message-back" aria-hidden="true">‹</span><div class="message-contact"><span class="message-avatar">${s.avatar}</span><span><strong>${escapeHtml(s.sender)}</strong>${easy?'':`<small>${iphone?'연락처에 없음':'발신자 정보 확인 안 됨'}</small>`}</span></div><span class="message-nav-actions" aria-hidden="true">${easy?'☎':'☎ ⓘ'}</span></div><div class="message-thread">${easy?'':`<div class="message-day">오늘 · ${escapeHtml(s.context)}</div>`}${bubbles}</div><div class="message-compose" aria-hidden="true"><span>＋</span><div class="compose-field">메시지 입력</div><span>🎙</span></div></div>`;
     }
 
     function renderCallUI(s, easy=false) {
