@@ -1186,6 +1186,101 @@
     .sound-status { margin:12px 0 0; font-size:13px; line-height:1.5; color:#6b7684; }
     .game-hud .hud-row { padding-right:52px; }
     .brief-topbar { padding-right:70px; }
+
+    /* Compact mode selection: title and badges share one row. */
+    .mode-wrap { padding:8px 18px 24px; }
+    .mode-intro { grid-template-columns:52px minmax(0,1fr); gap:12px; margin:8px 0 20px; }
+    .mode-guide-character { width:52px; height:70px; }
+    .mode-intro .section-title { margin:0 0 5px; font-size:24px; line-height:1.3; }
+    .mode-intro .section-desc { font-size:14px; line-height:1.5; }
+    .mode-list { gap:10px; }
+    .mode-card { padding:16px 14px; border:1px solid #e9edf2; border-radius:18px; }
+    .mode-card.featured { border-color:#cde2fc; }
+    .mode-card-head { display:grid; grid-template-columns:minmax(0,1fr) auto 10px; align-items:center; gap:8px; }
+    .mode-card-heading { min-width:0; display:flex; align-items:center; gap:8px; }
+    .mode-card .mode-icon { width:28px; height:32px; flex:0 0 auto; border-radius:10px; background:transparent; font-size:23px; }
+    .mode-card h3 { margin:0; font-size:18px; line-height:1.4; white-space:nowrap; }
+    .mode-card .mode-tags { justify-content:flex-end; gap:4px; }
+    .mode-card .mode-tag { padding:5px 6px; border-radius:7px; font-size:11px; line-height:1.3; font-weight:600; white-space:nowrap; }
+    .mode-tag.recommended { background:#3182f6; color:#fff; }
+    .mode-card p { margin:9px 0 0; color:#596574; font-size:14px; line-height:1.5; word-break:keep-all; }
+    .mode-card .mode-arrow { font-size:23px; }
+
+    /* General mode is a message conversation, without a nested phone frame. */
+    .general-mode .game-hud { flex:0 0 auto; }
+    .general-mode .game-main { padding:14px 16px 12px; }
+    .general-mode .scenario-title { margin:0 0 12px; color:#596574; font-size:14px; line-height:1.45; font-weight:400; letter-spacing:-.025em; word-break:keep-all; overflow-wrap:anywhere; }
+    .easy-chat { overflow:hidden; border:1px solid #e0e6ed; border-radius:18px; background:#edf3f8; box-shadow:0 3px 12px #23334306; }
+    .easy-chat-header { display:flex; align-items:center; gap:10px; min-height:58px; padding:10px 14px; border-bottom:1px solid #e4eaf1; background:#fff; }
+    .easy-chat-avatar { display:grid; place-items:center; width:32px; height:32px; flex:0 0 auto; font-size:23px; }
+    .easy-chat-header strong { min-width:0; flex:1; font-size:16px; line-height:1.4; font-weight:600; overflow-wrap:anywhere; }
+    .easy-chat-channel { flex:0 0 auto; font-size:17px; }
+    .easy-chat-thread { padding:16px 14px 20px; }
+    .easy-chat-bubble { width:fit-content; max-width:100%; padding:13px 14px; border-radius:4px 16px 16px 16px; background:#fff; color:#263541; font-size:17px; line-height:1.65; font-weight:400; letter-spacing:-.02em; overflow-wrap:anywhere; }
+    .easy-chat-bubble + .easy-chat-bubble { margin-top:10px; }
+    .easy-chat-bubble .link-fake { display:inline; color:#1768c5; font-weight:600; word-break:break-all; }
+    .easy-chat-messenger { background:#dce8ef; }
+    .easy-chat-messenger .easy-chat-header { background:#f3f7fa; }
+    .easy-chat-call { background:#edf2fc; }
+    .general-mode .game-choices { padding:12px 16px max(12px,env(safe-area-inset-bottom)); }
+    .general-mode .choice-prompt { gap:3px; margin-bottom:9px; }
+    .general-mode .choice-prompt strong { font-size:17px; line-height:1.4; font-weight:700; }
+    .general-mode .choice-prompt span { font-size:12px; line-height:1.4; }
+    .general-mode .easy-choice-list { gap:10px; }
+    .general-mode .easy-choice-btn { min-height:104px; gap:7px; padding:10px 8px; border-width:2px; border-radius:18px; box-shadow:0 3px 10px #202d3a06; }
+    .general-mode .easy-choice-symbol { font-size:44px; }
+    .general-mode .easy-choice-label { font-size:16px; line-height:1.35; font-weight:700; }
+
+    @media (max-width:791px) {
+      :root { --ui-scale:1; --scaled-viewport-height:100svh; }
+      @supports (height:100dvh) { :root { --scaled-viewport-height:100dvh; } }
+      body { padding:0; }
+      .screen-inner { min-height:var(--scaled-viewport-height); }
+      .topbar { min-height:56px; padding:8px 14px; padding-top:max(8px,env(safe-area-inset-top)); }
+      .topbar .brand-logo { width:128px; }
+      .mode-wrap { padding:6px 14px max(16px,env(safe-area-inset-bottom)); }
+      .mode-intro { margin:4px 0 16px; }
+      .mode-intro .section-title { font-size:22px; }
+      .mode-card { padding:14px 12px; }
+      .mode-card h3 { font-size:17px; }
+      .mode-card-heading { gap:5px; }
+      .mode-card .mode-icon { width:24px; font-size:21px; }
+      .game-screen { height:var(--scaled-viewport-height); padding-bottom:0; }
+      .game-layout { height:100%; min-height:0; }
+      .game-hud { flex:0 0 auto; padding:8px 14px; padding-top:max(8px,env(safe-area-inset-top)); }
+      .hud-back { width:42px; height:42px; flex:0 0 auto; }
+      .sound-tools { top:max(8px,env(safe-area-inset-top)); }
+      .general-mode .game-main { padding:12px 14px; }
+      .general-mode .game-choices { padding:10px 14px max(12px,env(safe-area-inset-bottom)); }
+      .general-mode .scenario-title { margin-bottom:10px; }
+      .stage-list { gap:8px; padding:4px 14px 18px; }
+      .stage-card { grid-template-columns:36px 1fr auto; gap:10px; padding:12px; border-radius:16px; }
+      .stage-icon { width:36px; height:38px; font-size:23px; border-radius:11px; }
+      .stage-card strong { margin-bottom:2px; font-size:15px; }
+      .stage-card small { font-size:12px; }
+    }
+    @media (max-width:360px) {
+      .mode-card .mode-tags { flex-direction:column; align-items:flex-end; gap:3px; }
+      .mode-card .mode-tag { padding:3px 6px; }
+      .mode-intro { grid-template-columns:42px minmax(0,1fr); gap:8px; }
+      .mode-guide-character { width:42px; height:60px; }
+      .mode-intro .section-title { font-size:20px; }
+      .general-mode .game-main { padding:10px 12px; }
+      .easy-chat-thread { padding:12px 10px 14px; }
+      .easy-chat-bubble { padding:11px 12px; font-size:16px; line-height:1.6; }
+      .general-mode .easy-choice-btn { min-height:96px; }
+    }
+    @media (max-width:791px) and (max-height:620px) {
+      .mode-intro { margin-bottom:12px; }
+      .mode-guide-character { height:52px; }
+      .mode-card { padding-top:11px; padding-bottom:11px; }
+      .general-mode .game-main { padding-top:10px; padding-bottom:8px; }
+      .easy-chat-header { min-height:48px; padding:8px 12px; }
+      .easy-chat-thread { padding:12px 10px 14px; }
+      .general-mode .easy-choice-btn { min-height:88px; padding:8px; }
+      .general-mode .easy-choice-symbol { font-size:38px; }
+      .general-mode .choice-prompt { margin-bottom:7px; }
+    }
   </style>
 </head>
 <body>
@@ -1245,26 +1340,32 @@
         <div class="mode-wrap">
           <div class="mode-intro">
             <img class="mode-guide-character" id="mode-guide-character" alt="지휘봉을 든 보이스피싱 지킴이 캐릭터" />
-            <div><h2 class="section-title">모드를<br />선택해 주세요.</h2><p class="section-desc">가장 쉬운 일반 모드부터 시작해 보세요.</p></div>
+            <div><h2 class="section-title">모드를 선택해 주세요.</h2><p class="section-desc">나에게 맞는 훈련을 골라 보세요.</p></div>
           </div>
           <div class="mode-list">
             <button class="mode-card featured" data-action="start-easy">
-              <div class="mode-card-top"><span class="mode-icon">🙂</span><span class="mode-top-right"><span class="mode-recommend">추천</span><span class="mode-arrow">›</span></span></div>
-              <h3>일반 모드</h3>
-              <p>큰 O·X 버튼으로 자주 겪는 사기 상황만 아주 쉽게 연습합니다.</p>
-              <div class="mode-tags"><span class="mode-tag">시니어 추천</span><span class="mode-tag">큰 O·X 버튼</span></div>
+              <div class="mode-card-head">
+                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true">🙂</span><h3>일반 모드</h3></div>
+                <div class="mode-tags"><span class="mode-tag recommended">시니어 추천</span><span class="mode-tag">큰 O·X 버튼</span></div>
+                <span class="mode-arrow" aria-hidden="true">›</span>
+              </div>
+              <p>큰 O·X 버튼으로 사기 상황을 쉽게 연습해요.</p>
             </button>
             <button class="mode-card" data-action="start-hard">
-              <div class="mode-card-top"><span class="mode-icon">🔥</span><span class="mode-arrow">›</span></div>
-              <h3>전문가 모드</h3>
-              <p>로맨스스캠 등 신종 피싱 유형 포함! 실제 신고 사례처럼 긴 대화와 압박 속에서 빠르게 판단합니다.</p>
-              <div class="mode-tags"><span class="mode-tag">선택지 3개</span><span class="mode-tag">30초 제한</span></div>
+              <div class="mode-card-head">
+                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true">🔥</span><h3>전문가 모드</h3></div>
+                <div class="mode-tags"><span class="mode-tag">선택지 3개</span><span class="mode-tag">30초 제한</span></div>
+                <span class="mode-arrow" aria-hidden="true">›</span>
+              </div>
+              <p>긴 대화와 신종 수법을 제한 시간 안에 판단해요.</p>
             </button>
             <button class="mode-card" data-action="open-stage-select">
-              <div class="mode-card-top"><span class="mode-icon">🎯</span><span class="mode-arrow">›</span></div>
-              <h3>유형별 연습 모드</h3>
-              <p>원하는 사기 유형을 골라 짧은 설명을 읽고 5문제씩 연습합니다.</p>
-              <div class="mode-tags"><span class="mode-tag">유형 직접 선택</span><span class="mode-tag">정답 힌트</span></div>
+              <div class="mode-card-head">
+                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true">🎯</span><h3>유형별 연습</h3></div>
+                <div class="mode-tags"><span class="mode-tag">유형 선택</span><span class="mode-tag">정답 힌트</span></div>
+                <span class="mode-arrow" aria-hidden="true">›</span>
+              </div>
+              <p>원하는 유형의 설명을 읽고 5문제씩 풀어요.</p>
             </button>
           </div>
         </div>
@@ -1982,6 +2083,17 @@
       "내가 만들지 않은 카드가 발급됐다고 한다":{prompt:"인증번호를 알려줘도 될까요?",o:"번호를 알려준다",x:"카드사에 확인한다",oSafe:false}
     };
 
+    // Short, neutral introductions keep the general-mode question on one line.
+    const EASY_SCENARIO_SUMMARIES = {
+      "주소 오류로 소포가 반송된다고 한다":"택배 주소를 고치라는 문자가 왔어요",
+      "건강검진 결과를 모바일로 확인하라고 한다":"검진 결과 확인 문자가 왔어요",
+      "지인 이름의 부고장이 도착했다":"지인 이름으로 부고 문자가 왔어요",
+      "휴대폰이 고장 난 딸이 상품권을 부탁한다":"딸이 수리비로 상품권을 부탁해요",
+      "휴대폰 개통에 신분증 사진이 필요하다고 한다":"휴대폰 개통에 신분증 사진이 필요하대요",
+      "내 통장이 범죄에 연루됐다고 한다":"내 통장이 범죄에 쓰였다는 전화예요",
+      "내가 만들지 않은 카드가 발급됐다고 한다":"모르는 카드의 결제 안내가 왔어요"
+    };
+
     function easyDecision(s) {
       return EASY_DECISIONS[s.title] || {prompt:"요구대로 해도 될까요?",o:"요구대로 한다",x:"직접 확인한다",oSafe:false};
     }
@@ -2325,8 +2437,11 @@
     }
 
     function renderEasyScenarioUI(s) {
-      if(s.type==="voice") return renderCallUI(s,true);
-      return renderMessageUI(s,true);
+      const isCall=s.type==="voice";
+      const kind=isCall?"call":s.type==="messenger"?"messenger":"sms";
+      const label=isCall?"전화 통화 내용":s.type==="messenger"?"메신저 대화":"문자 메시지";
+      const messages=s.messages.map(message=>`<div class="easy-chat-bubble">${richText(message)}</div>`).join("");
+      return `<section class="easy-chat easy-chat-${kind}" aria-label="${label}"><header class="easy-chat-header"><span class="easy-chat-avatar" aria-hidden="true">${s.avatar}</span><strong>${escapeHtml(s.sender)}</strong><span class="easy-chat-channel" aria-label="${label}">${isCall?'📞':'💬'}</span></header><div class="easy-chat-thread">${messages}</div></section>`;
     }
 
     function scenarioVisual(s) {
@@ -2369,7 +2484,11 @@
       document.getElementById("choice-question").textContent=state.mode==="easy"?easyDecision(s).prompt:"어떻게 대응할까요?";
       document.getElementById("choice-hint").textContent=state.guideOpen?"공략을 확인한 뒤 시작해요":state.mode==="hard"?"30초 안에 판단":state.mode==="voice-audio"?"음성을 듣고 판단해요":state.mode==="easy"?"O 또는 X를 크게 눌러요":state.mode==="practice"?"둘 중 하나를 골라요":"천천히 판단해도 좋아요";
       const trainingLabel=state.mode==="voice-audio"?`${VOICE_EXPERIENCE.icon} 보이스피싱 듣기 연습`:state.mode==="easy"?"🙂 쉬운 O·X 훈련":`${t.icon} ${t.title} 연습`;
-      document.getElementById("scenario-area").innerHTML=`<div class="mission-label"><span>${trainingLabel}</span><span class="channel-chip">${scenarioChannel(s)}</span></div><h2 class="scenario-title">${s.title}</h2>${scenarioVisual(s)}`;
+      const isGeneral=state.mode==="easy";
+      const title=isGeneral?(EASY_SCENARIO_SUMMARIES[s.title] || s.title):s.title;
+      document.getElementById("screen-game").classList.toggle("general-mode",isGeneral);
+      document.getElementById("scenario-area").innerHTML=`${isGeneral?'':`<div class="mission-label"><span>${trainingLabel}</span><span class="channel-chip">${scenarioChannel(s)}</span></div>`}<h2 class="scenario-title">${escapeHtml(title)}</h2>${scenarioVisual(s)}`;
+      document.getElementById("scenario-area").scrollTop=0;
       const choiceList=document.getElementById("choice-list");
       document.querySelector(".game-choices")?.classList.toggle("easy-mode",state.mode==="easy");
       choiceList.className=state.mode==="easy"?"choice-list easy-choice-list":"choice-list";
