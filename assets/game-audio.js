@@ -111,7 +111,7 @@
   function setScreen(name) {
     screen = name;
     desired = ['landing', 'mode', 'stage-select'].includes(name) ? 'hero' : 'calm';
-    document.getElementById('sound-tools')?.setAttribute('data-screen', name);
+    document.getElementById('sound-tools')?.setAttribute('data-audio-screen', name);
     if (ctx) syncMusic();
   }
 
