@@ -1218,9 +1218,7 @@
     .general-mode { --general-text-size:20px; }
     .general-mode .game-hud { flex:0 0 auto; }
     .general-mode .game-main { padding:14px 16px 12px; }
-    .general-mode .scenario-title { display:flex; align-items:center; gap:9px; margin:0 0 12px; padding:11px 12px; border:1px solid #d6e4f3; border-left:3px solid #5189c5; border-radius:14px; background:linear-gradient(110deg,#edf5ff,#fff); box-shadow:0 3px 10px rgba(35,51,67,.04); color:#42576d; font-size:14px; line-height:1.5; font-weight:400; letter-spacing:-.025em; word-break:keep-all; overflow-wrap:anywhere; }
-    .general-mode .scenario-title-icon { display:grid; place-items:center; width:28px; height:28px; flex:0 0 28px; border-radius:9px; background:#fff; font-size:16px; line-height:1; }
-    .general-mode .scenario-title-text { min-width:0; }
+    .general-mode .scenario-title { margin:0 0 12px; word-break:keep-all; overflow-wrap:anywhere; }
     /* 전문가 모드의 문자·메신저·통화 형태를 큰 글씨에 맞춰 구성 */
     .general-mode .scene-ui { border:1px solid #dbe2e9; border-radius:22px; box-shadow:0 5px 18px rgba(35,51,67,.07); }
     .general-mode .os-phone { background:#fff; }
@@ -2555,9 +2553,8 @@
       const trainingLabel=state.mode==="voice-audio"?`${VOICE_EXPERIENCE.icon} 보이스피싱 듣기 연습`:state.mode==="easy"?"🙂 쉬운 O·X 훈련":`${t.icon} ${t.title} 연습`;
       const isGeneral=state.mode==="easy";
       const title=isGeneral?(EASY_SCENARIO_SUMMARIES[s.title] || s.title):s.title;
-      const titleContent=isGeneral?`<span class="scenario-title-icon" aria-hidden="true">${escapeHtml(easyScenarioMeta(s).icon)}</span><span class="scenario-title-text">${escapeHtml(title)}</span>`:escapeHtml(title);
       document.getElementById("screen-game").classList.toggle("general-mode",isGeneral);
-      document.getElementById("scenario-area").innerHTML=`${isGeneral?'':`<div class="mission-label"><span>${trainingLabel}</span><span class="channel-chip">${scenarioChannel(s)}</span></div>`}<h2 class="scenario-title">${titleContent}</h2>${scenarioVisual(s)}`;
+      document.getElementById("scenario-area").innerHTML=`${isGeneral?'':`<div class="mission-label"><span>${trainingLabel}</span><span class="channel-chip">${scenarioChannel(s)}</span></div>`}<h2 class="scenario-title">${escapeHtml(title)}</h2>${scenarioVisual(s)}`;
       document.getElementById("scenario-area").scrollTop=0;
       const choiceList=document.getElementById("choice-list");
       document.querySelector(".game-choices")?.classList.toggle("easy-mode",state.mode==="easy");
