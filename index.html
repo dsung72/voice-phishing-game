@@ -1214,11 +1214,41 @@
     .mode-card p { margin:9px 0 0; color:#596574; font-size:14px; line-height:1.5; word-break:keep-all; }
     .mode-card .mode-arrow { color:var(--mode-accent); font-size:23px; }
 
-    /* General mode is a message conversation, without a nested phone frame. */
+    /* Security-training cards: decorations stay outside the sizing flow. */
+    #screen-mode { background:radial-gradient(ellipse at 100% 5%,#fff0d9 0,transparent 40%),radial-gradient(ellipse at 0 72%,#e9f3ff 0,transparent 50%),#fbfcfe; }
+    #screen-mode .topbar { background:transparent; }
+    .mode-card { isolation:isolate; overflow:hidden; background:linear-gradient(120deg,#e3f0ff 0%,#f5faff 66%,#deedff 100%); box-shadow:0 6px 16px #1738540d,inset 0 1px 0 #ffffffd9; }
+    .mode-card.featured { background:linear-gradient(120deg,#e3f0ff 0%,#f5faff 66%,#deedff 100%); }
+    .mode-card::before { inset:18px auto 18px 0; width:4px; opacity:1; }
+    .mode-card::after { content:""; position:absolute; inset:0; z-index:-1; background-image:linear-gradient(90deg,currentColor 1px,transparent 1px),linear-gradient(currentColor 1px,transparent 1px); background-size:24px 24px; color:var(--mode-accent); opacity:.035; pointer-events:none; }
+    .mode-card[data-action="start-hard"] { --mode-accent:#ffd07d; --mode-border:#354e6a; --mode-tint:#233c58; color:#fff; background:linear-gradient(120deg,#172a40 0%,#243e5b 66%,#304c69 100%); box-shadow:0 6px 16px #17385424,inset 0 1px 0 #ffffff14; }
+    .mode-card[data-action="open-stage-select"] { background:linear-gradient(120deg,#ddf3ef 0%,#f3fcf9 66%,#d9f0e9 100%); }
+    .mode-card .mode-icon { color:var(--mode-accent); border-color:var(--mode-border); background:linear-gradient(145deg,#fff,#ffffffa6); box-shadow:0 4px 10px #17385412,inset 0 1px 0 #fff; }
+    .mode-card .mode-icon svg { width:25px; height:25px; }
+    .mode-card[data-action="start-hard"] .mode-icon { background:#ffffff0e; border-color:#ffffff35; box-shadow:0 4px 10px #07162830,inset 0 1px 0 #ffffff14; }
+    .mode-card[data-action="start-hard"] p { color:#dce6f2; }
+    .mode-card[data-action="start-hard"] .mode-tag { color:#ffe2ad; background:#ffffff13; }
+    .mode-card .mode-tag { box-shadow:inset 0 0 0 1px #ffffff80; }
+    .mode-card[data-action="start-hard"] .mode-tag { box-shadow:inset 0 0 0 1px #ffffff24; }
+    .mode-card-kicker { position:absolute; left:16px; top:13px; color:var(--mode-accent); font-size:11px; line-height:1.2; font-weight:700; letter-spacing:.06em; }
+    .mode-card-serial { position:absolute; right:16px; top:12px; display:flex; align-items:center; gap:6px; color:var(--mode-accent); font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; }
+    .mode-card-serial::before { content:""; width:20px; height:1px; background:currentColor; opacity:.5; }
+    .mode-card-watermark { position:absolute; right:-10px; bottom:-18px; z-index:-1; width:112px; height:112px; color:var(--mode-accent); opacity:.085; transform:rotate(-12deg); pointer-events:none; }
+    .mode-card-trace { position:absolute; left:16px; bottom:13px; display:flex; gap:4px; color:var(--mode-accent); pointer-events:none; }
+    .mode-card-trace i { width:18px; height:3px; border-radius:2px; background:currentColor; opacity:.2; }
+    .mode-card-trace i:first-child { opacity:.9; }
+    .mode-card[data-action="start-hard"] .mode-card-trace i { opacity:.9; }
+    .mode-card[data-action="open-stage-select"] .mode-card-trace i:nth-child(2) { opacity:.6; }
+
+    /* General mode keeps large text inside a compact phone interface. */
     .general-mode { --general-text-size:20px; }
     .general-mode .game-hud { flex:0 0 auto; }
     .general-mode .game-main { padding:14px 16px 12px; }
     .general-mode .scenario-title { margin:0 0 12px; word-break:keep-all; overflow-wrap:anywhere; }
+    .general-mode .mission-label { gap:8px; margin-bottom:10px; }
+    .general-mode .mission-label > span:first-child { font-size:12px; font-weight:800; letter-spacing:0; }
+    .general-mode .channel-chip { display:inline-flex; align-items:center; gap:5px; padding:5px 9px; white-space:nowrap; }
+    .general-mode .channel-chip svg { width:14px; height:14px; flex:0 0 auto; }
     /* 전문가 모드의 문자·메신저·통화 형태를 큰 글씨에 맞춰 구성 */
     .general-mode .scene-ui { border:1px solid #dbe2e9; border-radius:22px; box-shadow:0 5px 18px rgba(35,51,67,.07); }
     .general-mode .os-phone { background:#fff; }
@@ -1236,6 +1266,22 @@
     .general-mode .os-phone .message-compose { grid-template-columns:22px 1fr 22px; gap:7px; padding:8px 12px; font-size:18px; }
     .general-mode .os-phone .compose-field { padding:7px 12px; font-size:12px; }
     .general-mode .os-phone .link-fake { color:#1768c5; background:transparent; font-weight:600; text-decoration-thickness:1px; }
+    .general-mode .scene-ui .general-phone-status { position:relative; height:32px; margin:0; padding:0 16px; color:inherit; background:transparent; font-size:12px; font-weight:700; }
+    .general-phone-status::after { content:""; position:absolute; left:50%; top:10px; width:7px; height:7px; margin-left:-3.5px; border-radius:50%; background:currentColor; opacity:.65; box-shadow:inset 0 0 0 2px #ffffff30; }
+    .general-status-icons { display:flex; align-items:center; gap:7px; }
+    .general-signal { display:flex; align-items:flex-end; gap:2px; height:11px; }
+    .general-signal i { width:3px; height:4px; border-radius:1px; background:currentColor; }
+    .general-signal i:nth-child(2) { height:6px; }
+    .general-signal i:nth-child(3) { height:9px; }
+    .general-signal i:nth-child(4) { height:11px; }
+    .general-wifi { width:15px; height:12px; }
+    .general-battery { position:relative; width:20px; height:10px; padding:1px; border:1px solid currentColor; border-radius:3px; }
+    .general-battery::before { content:""; display:block; width:85%; height:100%; border-radius:1px; background:currentColor; }
+    .general-battery::after { content:""; position:absolute; right:-3px; top:2px; width:2px; height:4px; border-radius:0 1px 1px 0; background:currentColor; }
+    .general-phone-date { margin:0 0 13px; color:#677788; font-size:11px; line-height:1.4; text-align:center; }
+    .general-home-indicator { height:16px; padding:5px 0 7px; background:#fff; color:#293744; }
+    .general-home-indicator::after { content:""; display:block; width:84px; height:4px; margin:0 auto; border-radius:99px; background:currentColor; opacity:.65; }
+    .general-mode .os-phone .message-contact small { display:block; margin-top:2px; font-size:11px; color:#687789; }
     .family-chat { background:#b8cddd; color:#263541; }
     .family-chat-head { display:grid; grid-template-columns:20px minmax(0,1fr) 48px; align-items:center; gap:10px; min-height:62px; padding:12px 14px; border-bottom:1px solid rgba(38,53,65,.08); }
     .family-chat-back { font-size:29px; line-height:1; }
@@ -1253,8 +1299,12 @@
     .family-chat-field { display:flex; justify-content:space-between; align-items:center; min-height:32px; padding:5px 11px; border:1px solid #e6e9ed; border-radius:16px; background:#f8f9fa; font-size:12px; }
     .family-chat-field span { font-size:19px; }
     .family-chat-send { display:grid; place-items:center; height:32px; border-radius:9px; background:#ffe34d; color:#4b4120; font-size:20px; }
+    .family-chat .general-phone-date { color:#4b6275; }
     .general-mode .general-call { min-height:0; padding:18px 16px 15px; animation:none; background:radial-gradient(circle at 75% 0,#435c7a 0,#263a52 42%,#172637 100%); }
     .general-mode .general-call.bank { background:radial-gradient(circle at 75% 0,#3d7a89 0,#245664 42%,#143440 100%); }
+    .general-mode .general-call .general-phone-status { height:24px; padding:0; margin:-8px 0 14px; color:#fff; }
+    .general-call .general-phone-status::after { top:7px; }
+    .general-call .general-home-indicator { height:12px; margin-top:12px; padding-bottom:3px; color:#fff; background:transparent; }
     .general-call-head { display:grid; grid-template-columns:48px minmax(0,1fr); align-items:center; gap:12px; text-align:left; }
     .general-call .caller-seal { width:48px; height:48px; margin:0; border-radius:50%; font-size:26px; }
     .general-call .general-call-head h3 { margin:0 0 5px; font-size:20px; line-height:1.4; font-weight:600; overflow-wrap:anywhere; }
@@ -1339,6 +1389,10 @@
       .general-mode .easy-choice-btn { min-height:88px; padding:8px; }
       .general-mode .easy-choice-symbol { font-size:38px; }
       .general-mode .choice-prompt { margin-bottom:7px; }
+      .general-mode .mission-label { margin-bottom:7px; }
+      .general-mode .scene-ui .general-phone-status { height:27px; }
+      .general-mode .general-call .general-phone-status { height:21px; margin-bottom:10px; }
+      .general-phone-date { margin-bottom:9px; }
     }
   </style>
 </head>
@@ -1403,28 +1457,37 @@
           </div>
           <div class="mode-list">
             <button class="mode-card featured" data-action="start-easy">
+              <span class="mode-card-kicker" aria-hidden="true">기초 방어 훈련</span><span class="mode-card-serial" aria-hidden="true">01</span>
+              <svg class="mode-card-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg>
               <div class="mode-card-head">
-                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true">🙂</span><h3>일반 모드</h3></div>
+                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg></span><h3>일반 모드</h3></div>
                 <div class="mode-tags"><span class="mode-tag recommended">시니어 추천</span><span class="mode-tag">큰 O·X 버튼</span></div>
                 <span class="mode-arrow" aria-hidden="true">›</span>
               </div>
               <p>큰 O·X 버튼으로 사기 상황을 쉽게 연습해요.</p>
+              <span class="mode-card-trace" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
             <button class="mode-card" data-action="start-hard">
+              <span class="mode-card-kicker" aria-hidden="true">실전 대응 훈련</span><span class="mode-card-serial" aria-hidden="true">02</span>
+              <svg class="mode-card-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h3m10 0h3v3m0 10v3h-3M7 20H4v-3"/><circle cx="11" cy="11" r="4"/><path d="m14 14 3 3"/></svg>
               <div class="mode-card-head">
-                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true">🔥</span><h3>전문가 모드</h3></div>
+                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V4h3m10 0h3v3m0 10v3h-3M7 20H4v-3"/><circle cx="11" cy="11" r="4"/><path d="m14 14 3 3"/></svg></span><h3>전문가 모드</h3></div>
                 <div class="mode-tags"><span class="mode-tag">선택지 3개</span><span class="mode-tag">30초 제한</span></div>
                 <span class="mode-arrow" aria-hidden="true">›</span>
               </div>
               <p>긴 대화와 신종 수법을 제한 시간 안에 판단해요.</p>
+              <span class="mode-card-trace" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
             <button class="mode-card" data-action="open-stage-select">
+              <span class="mode-card-kicker" aria-hidden="true">집중 탐지 훈련</span><span class="mode-card-serial" aria-hidden="true">03</span>
+              <svg class="mode-card-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 4-8 8"/><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 1 0 1.71 4.99M19.07 4.93a10 10 0 1 0 2.83 8.33"/></svg>
               <div class="mode-card-head">
-                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true">🎯</span><h3>유형별 연습</h3></div>
+                <div class="mode-card-heading"><span class="mode-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 4-8 8"/><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 1 0 1.71 4.99M19.07 4.93a10 10 0 1 0 2.83 8.33"/></svg></span><h3>유형별 연습</h3></div>
                 <div class="mode-tags"><span class="mode-tag">유형 선택</span><span class="mode-tag">정답 힌트</span></div>
                 <span class="mode-arrow" aria-hidden="true">›</span>
               </div>
               <p>원하는 유형의 설명을 읽고 5문제씩 풀어요.</p>
+              <span class="mode-card-trace" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
           </div>
         </div>
@@ -2195,6 +2258,9 @@
       hour:"2-digit", minute:"2-digit", hour12:false
     }).replace(/^24:/,"00:");
     const statusBar = () => `<div class="phone-status"><span class="live-clock">${currentClock()}</span><span class="status-icons">● ◔ ▰</span></div>`;
+    const generalStatusBar = () => `<div class="phone-status general-phone-status" aria-hidden="true"><span class="live-clock">${currentClock()}</span><span class="general-status-icons"><span class="general-signal"><i></i><i></i><i></i><i></i></span><svg class="general-wifi" viewBox="0 0 20 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 5a12 12 0 0 1 16 0M5 8a8 8 0 0 1 10 0m-7 3a3 3 0 0 1 4 0"/><circle cx="10" cy="14" r="1" fill="currentColor" stroke="none"/></svg><span class="general-battery"></span></span></div>`;
+    const generalPhoneDate = () => `<div class="general-phone-date">${new Date().toLocaleDateString("ko-KR",{month:"long",day:"numeric",weekday:"long"})}</div>`;
+    const generalHomeIndicator = () => '<div class="general-home-indicator" aria-hidden="true"></div>';
     let liveClockTimer=null;
     function startLiveClock(){
       if(liveClockTimer) clearInterval(liveClockTimer);
@@ -2208,7 +2274,7 @@
       const platform = iphone ? "iphone" : "galaxy";
       const time = s.sender.includes("교통") ? "12:44" : "9:18";
       const bubbles = s.messages.map((m,i)=>`<div class="message-bubble">${richText(m)}</div><div class="message-time">${time}${i===s.messages.length-1?' · 읽지 않음':''}</div>`).join("");
-      return `<div class="scene-ui os-phone ${platform}${easy?' easy-realistic':''}" aria-label="${iphone?'아이폰':'갤럭시'} 문자 메시지 화면">${easy?'':statusBar()}<div class="message-nav"><span class="message-back" aria-hidden="true">‹</span><div class="message-contact"><span class="message-avatar">${s.avatar}</span><span><strong>${escapeHtml(s.sender)}</strong>${easy?'':`<small>${iphone?'연락처에 없음':'발신자 정보 확인 안 됨'}</small>`}</span></div><span class="message-nav-actions" aria-hidden="true">${easy?'☎':'☎ ⓘ'}</span></div><div class="message-thread">${easy?'':`<div class="message-day">오늘 · ${escapeHtml(s.context)}</div>`}${bubbles}</div><div class="message-compose" aria-hidden="true"><span>＋</span><div class="compose-field">메시지 입력</div><span>🎙</span></div></div>`;
+      return `<div class="scene-ui os-phone ${platform}${easy?' easy-realistic':''}" aria-label="${iphone?'아이폰':'갤럭시'} 문자 메시지 화면">${easy?generalStatusBar():statusBar()}<div class="message-nav"><span class="message-back" aria-hidden="true">‹</span><div class="message-contact"><span class="message-avatar">${s.avatar}</span><span><strong>${escapeHtml(s.sender)}</strong>${easy?'<small>문자 메시지</small>':`<small>${iphone?'연락처에 없음':'발신자 정보 확인 안 됨'}</small>`}</span></div><span class="message-nav-actions" aria-hidden="true">${easy?'☎':'☎ ⓘ'}</span></div><div class="message-thread">${easy?generalPhoneDate():`<div class="message-day">오늘 · ${escapeHtml(s.context)}</div>`}${bubbles}</div><div class="message-compose" aria-hidden="true"><span>＋</span><div class="compose-field">메시지 입력</div><span>🎙</span></div>${easy?generalHomeIndicator():''}</div>`;
     }
 
     function renderCallUI(s, easy=false) {
@@ -2497,12 +2563,12 @@
 
     function renderFamilyChatUI(s) {
       const messages=s.messages.map((message,i)=>`<div class="family-chat-row"><span class="family-chat-avatar" aria-hidden="true">${i?'':s.avatar}</span><div><div class="family-chat-bubble">${richText(message)}</div>${i===s.messages.length-1?'<div class="family-chat-time">오전 9:18</div>':''}</div></div>`).join("");
-      return `<section class="scene-ui family-chat" aria-label="가족 메신저 대화 화면"><header class="family-chat-head"><span class="family-chat-back" aria-hidden="true">‹</span><strong>${escapeHtml(s.sender)}</strong><span class="family-chat-actions" aria-hidden="true">⌕ ☰</span></header><div class="family-chat-thread">${messages}</div><div class="family-chat-compose" aria-hidden="true"><span>＋</span><div class="family-chat-field">메시지 입력<span>☺</span></div><span class="family-chat-send">↑</span></div></section>`;
+      return `<section class="scene-ui family-chat" aria-label="가족 메신저 대화 화면">${generalStatusBar()}<header class="family-chat-head"><span class="family-chat-back" aria-hidden="true">‹</span><strong>${escapeHtml(s.sender)}</strong><span class="family-chat-actions" aria-hidden="true">⌕ ☰</span></header><div class="family-chat-thread">${generalPhoneDate()}${messages}</div><div class="family-chat-compose" aria-hidden="true"><span>＋</span><div class="family-chat-field">메시지 입력<span>☺</span></div><span class="family-chat-send">↑</span></div>${generalHomeIndicator()}</section>`;
     }
 
     function renderEasyCallUI(s) {
       const theme=/카드|은행/.test(s.sender)?"bank":"institution";
-      return `<section class="scene-ui call-ui general-call ${theme}" aria-label="수신 전화 통화 화면"><header class="general-call-head"><div class="caller-seal" aria-hidden="true">${s.avatar}</div><div><h3>${escapeHtml(s.sender)}</h3><div class="general-call-status"><span>통화 중</span><span class="call-duration" aria-live="off">00:00</span></div></div></header><div class="live-transcript">${richText(s.messages.join("\n"))}</div><div class="call-controls" aria-hidden="true"><div class="call-control"><span class="control-dot">♩</span><span>소리 끔</span></div><div class="call-control"><span class="control-dot">⌨</span><span>키패드</span></div><div class="call-control"><span class="control-dot">🔊</span><span>스피커</span></div><div class="call-control"><span class="hangup"><svg viewBox="0 0 24 24"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .4-.24.76-.6.92-.98.44-1.88 1.02-2.67 1.7-.18.16-.42.25-.67.25-.28 0-.53-.11-.71-.29L.29 12.94A.99.99 0 0 1 0 12.23c0-.28.11-.53.29-.71C3.34 8.71 7.45 7 12 7s8.66 1.71 11.71 4.52c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.46 2.46c-.18.18-.43.29-.71.29-.25 0-.49-.09-.67-.25-.79-.68-1.69-1.26-2.67-1.7a1 1 0 0 1-.6-.92v-3.1A14.8 14.8 0 0 0 12 9z" fill="currentColor"/></svg></span><span>통화 종료</span></div></div></section>`;
+      return `<section class="scene-ui call-ui general-call ${theme}" aria-label="수신 전화 통화 화면">${generalStatusBar()}<header class="general-call-head"><div class="caller-seal" aria-hidden="true">${s.avatar}</div><div><h3>${escapeHtml(s.sender)}</h3><div class="general-call-status"><span>통화 중</span><span class="call-duration" aria-live="off">00:00</span></div></div></header><div class="live-transcript">${richText(s.messages.join("\n"))}</div><div class="call-controls" aria-hidden="true"><div class="call-control"><span class="control-dot">♩</span><span>소리 끔</span></div><div class="call-control"><span class="control-dot">⌨</span><span>키패드</span></div><div class="call-control"><span class="control-dot">🔊</span><span>스피커</span></div><div class="call-control"><span class="hangup"><svg viewBox="0 0 24 24"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .4-.24.76-.6.92-.98.44-1.88 1.02-2.67 1.7-.18.16-.42.25-.67.25-.28 0-.53-.11-.71-.29L.29 12.94A.99.99 0 0 1 0 12.23c0-.28.11-.53.29-.71C3.34 8.71 7.45 7 12 7s8.66 1.71 11.71 4.52c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.46 2.46c-.18.18-.43.29-.71.29-.25 0-.49-.09-.67-.25-.79-.68-1.69-1.26-2.67-1.7a1 1 0 0 1-.6-.92v-3.1A14.8 14.8 0 0 0 12 9z" fill="currentColor"/></svg></span><span>통화 종료</span></div></div>${generalHomeIndicator()}</section>`;
     }
 
     function renderEasyScenarioUI(s) {
@@ -2550,11 +2616,13 @@
       document.getElementById("timer-line").classList.toggle("hidden",state.mode!=="hard");
       document.getElementById("choice-question").textContent=state.mode==="easy"?easyDecision(s).prompt:"어떻게 대응할까요?";
       document.getElementById("choice-hint").textContent=state.guideOpen?"공략을 확인한 뒤 시작해요":state.mode==="hard"?"30초 안에 판단":state.mode==="voice-audio"?"음성을 듣고 판단해요":state.mode==="easy"?"O 또는 X를 크게 눌러요":state.mode==="practice"?"둘 중 하나를 골라요":"천천히 판단해도 좋아요";
-      const trainingLabel=state.mode==="voice-audio"?`${VOICE_EXPERIENCE.icon} 보이스피싱 듣기 연습`:state.mode==="easy"?"🙂 쉬운 O·X 훈련":`${t.icon} ${t.title} 연습`;
+      const trainingLabel=state.mode==="voice-audio"?`${VOICE_EXPERIENCE.icon} 보이스피싱 듣기 연습`:`${t.icon} ${t.title} 연습`;
       const isGeneral=state.mode==="easy";
       const title=isGeneral?(EASY_SCENARIO_SUMMARIES[s.title] || s.title):s.title;
       document.getElementById("screen-game").classList.toggle("general-mode",isGeneral);
-      document.getElementById("scenario-area").innerHTML=`${isGeneral?'':`<div class="mission-label"><span>${trainingLabel}</span><span class="channel-chip">${scenarioChannel(s)}</span></div>`}<h2 class="scenario-title">${escapeHtml(title)}</h2>${scenarioVisual(s)}`;
+      const generalChannel=s.type==="voice"?"전화":s.type==="messenger"?"메신저":"메시지";
+      const channelIcon=isGeneral?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${s.type==="voice"?'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.79a2 2 0 0 1-.45 2.11L8.09 9.89a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.83.58 2.79.7A2 2 0 0 1 22 16.92Z"/>':'<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/>'}</svg>`:"";
+      document.getElementById("scenario-area").innerHTML=`<div class="mission-label"><span>${trainingLabel}</span><span class="channel-chip">${channelIcon}${escapeHtml(isGeneral?generalChannel:scenarioChannel(s))}</span></div><h2 class="scenario-title">${escapeHtml(title)}</h2>${scenarioVisual(s)}`;
       document.getElementById("scenario-area").scrollTop=0;
       const choiceList=document.getElementById("choice-list");
       document.querySelector(".game-choices")?.classList.toggle("easy-mode",state.mode==="easy");
