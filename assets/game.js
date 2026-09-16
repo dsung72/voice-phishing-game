@@ -473,8 +473,19 @@
     };
 
     function trackGameEvent(name, params={}) {
-      if(window.analyticsConsent!=="granted" || !window.analyticsSupported || typeof window.gtag!=="function") return;
+      if(window.analyticsConsent!=="granted" || !window.analyticsSupported || typeof window.gtag!=="function") return false;
       window.gtag("event",name,params);
+      return true;
+    }
+
+    // Keep in-game navigation separate from GA4's page/screen view metric.
+    // Re-rendering the current screen must not create a second navigation event.
+    let lastTrackedGameScreen=null;
+    function trackGameScreen(name) {
+      if(name===lastTrackedGameScreen) return;
+      if(trackGameEvent("game_screen_view",{app_name:"voice_phishing_prevention_game",screen_name:name})) {
+        lastTrackedGameScreen=name;
+      }
     }
 
     function analyticsLevelName() {
@@ -492,8 +503,8 @@
       document.getElementById("analytics-consent")?.classList.add("hidden");
       if(value==="granted") {
         window.loadGoogleAnalytics?.();
-        trackGameEvent("screen_view",{app_name:"voice_phishing_prevention_game",screen_name:state.screen || "landing"});
-      }
+        trackGameScreen(state.screen || "landing");
+      } else lastTrackedGameScreen=null;
     }
 
     function syncAnalyticsConsentBanner() {
@@ -512,7 +523,7 @@
         document.getElementById("practice-guide")?.classList.add("hidden");
       }
       window.GameAudio?.setScreen(name);
-      trackGameEvent("screen_view",{app_name:"voice_phishing_prevention_game",screen_name:name});
+      trackGameScreen(name);
     }
 
     function renderBrief() {

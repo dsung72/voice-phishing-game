@@ -361,10 +361,12 @@
     .recovery-note { display:flex; align-items:flex-start; gap:8px; margin-top:16px; padding:13px 14px; border-radius:14px; background:#f7f8fa; color:#5f6b76; font-size:12px; line-height:1.6; }
     .recovery-note b { flex:0 0 auto; color:var(--danger); }
     @media (max-width: 440px) {
-      .recovery-step { grid-template-columns:47px minmax(0,1fr); min-height:104px; align-items:start; padding:14px 14px 14px 0; }
-      .recovery-num { margin-top:3px; }
-      .recovery-where { grid-column:2; justify-self:start; margin-top:-4px; padding:7px 10px; text-align:left; }
-      .recovery-where br { display:none; }
+      .recovery-flow::before { left:16px; }
+      .recovery-step { grid-template-columns:33px minmax(0,1fr) 90px; gap:8px; min-height:104px; padding:12px 9px 12px 0; }
+      .recovery-num { width:32px; height:32px; border-width:2px; font-size:13px; }
+      .recovery-action strong { font-size:14px; line-height:1.5; overflow-wrap:anywhere; }
+      .recovery-action span { word-break:keep-all; overflow-wrap:anywhere; }
+      .recovery-where { min-width:0; padding:9px 5px; font-size:12px; line-height:1.55; overflow-wrap:anywhere; }
     }
     .brief-footer { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: min(100%, 520px); padding: 12px 24px max(16px, env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); border-top: 1px solid rgba(229,232,235,.75); z-index: 30; }
 
