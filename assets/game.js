@@ -522,7 +522,7 @@
         state.guideOpen=false;
         document.getElementById("practice-guide")?.classList.add("hidden");
       }
-      window.GameAudio?.setScreen(name);
+      window.GameAudio?.setScreen(name, state.mode);
       trackGameScreen(name);
     }
 
@@ -830,12 +830,13 @@
           voicePauseTimer=setTimeout(speakNext,pauses[(segmentIndex-1)%pauses.length]);
         };
         utterance.onerror=event=>{
-          if(token!==voicePlaybackToken || /canceled|interrupted/.test(event.error || "")) return;
+          if(token!==voicePlaybackToken) return;
           activeVoiceUtterances=[];
           updateVoiceAudioPanel(false,"음성을 재생하지 못했습니다. 다시 눌러 주세요.");
         };
         activeVoiceUtterances=[utterance];
-        window.speechSynthesis.speak(utterance);
+        try { window.speechSynthesis.speak(utterance); }
+        catch (_) { utterance.onerror({error:"synthesis-failed"}); }
       };
       updateVoiceAudioPanel(true,"음성을 준비하고 있습니다…");
       trackGameEvent("voice_play",{level_name:"voice_audio",fraud_type:s.type,question_number:state.index+1});
@@ -1160,7 +1161,7 @@
       const rank=accuracy===100?{title:"모두 맞혔어요",sub:"위험 신호를 정확히 알아보고 안전하게 대응했습니다."}:accuracy>=70?{title:"좋은 감각이에요",sub:"놓친 유형만 다시 보면 실제 상황에서도 더 빠르게 대응할 수 있어요."}:{title:"한 번 더 연습해 봐요",sub:"해설을 기억하고 다시 풀면 위험 신호가 더 잘 보일 거예요."};
       const uniqueWrongs=state.wrongs;
       const reviews=uniqueWrongs.length?uniqueWrongs.map(w=>{const t=typeById(w.type);return `<div class="review-item"><span class="review-item-icon">${t.icon}</span><div><strong>${t.title} · ${w.title}</strong><p>${w.lesson}</p></div></div>`}).join(""):`<div class="review-item"><span class="review-item-icon">✨</span><div><strong>놓친 위험 신호가 없어요</strong><p>멈춤 → 공식 경로 확인 → 112 신고 순서를 계속 기억해 주세요.</p></div></div>`;
-      document.getElementById("result-content").innerHTML=`<div class="result-hero"><div class="rank-medal"><img src="${RESULT_CLAP_CHARACTER_IMAGE}" alt="박수치는 보이스피싱 지킴이 캐릭터" /></div><p class="result-eyebrow">${modeName}</p><h1 class="result-title">${rank.title}</h1><p class="result-sub">${rank.sub}</p></div><div class="result-score-card"><span class="result-balance-label">정답률</span><strong class="result-balance">${accuracy}%</strong><div class="result-bars"><div class="result-metric"><strong>${state.correct}</strong><span>맞힌 문제</span></div><div class="result-metric"><strong>${total-state.correct}</strong><span>틀린 문제</span></div><div class="result-metric"><strong>${total}</strong><span>전체 문제</span></div></div></div><div class="review-card"><h3>${uniqueWrongs.length?'오답 체크':'오늘의 안전 원칙'}</h3>${reviews}</div><div class="result-actions"><button class="btn-primary" data-action="retry">같은 모드 다시 하기</button><button class="btn-secondary" data-action="go-mode">다른 훈련 선택</button></div><button class="recovery-result-btn" data-action="open-recovery-guide"><span class="recovery-result-icon">!</span><span>만약 보이스피싱을 당했다면?</span><span class="recovery-result-arrow">›</span></button>`;
+      document.getElementById("result-content").innerHTML=`<div class="result-hero"><div class="rank-medal"><img src="${RESULT_CLAP_CHARACTER_IMAGE}" alt="박수치는 보이스피싱 지킴이 캐릭터" /></div><p class="result-eyebrow">${modeName}</p><h1 class="result-title">${rank.title}</h1><p class="result-sub">${rank.sub}</p></div><div class="result-score-card"><span class="result-balance-label">정답률</span><strong class="result-balance">${accuracy}%</strong><div class="result-bars"><div class="result-metric"><strong>${state.correct}</strong><span>맞힌 문제</span></div><div class="result-metric"><strong>${total-state.correct}</strong><span>틀린 문제</span></div><div class="result-metric"><strong>${total}</strong><span>전체 문제</span></div></div></div><div class="review-card"><h3>${uniqueWrongs.length?'오답 체크':'오늘의 안전 원칙'}</h3>${reviews}</div><div class="result-actions"><button class="btn-primary" data-action="retry">같은 모드 다시 하기</button><button class="btn-secondary" data-action="go-mode">다른 훈련 선택</button></div><button class="recovery-result-btn" data-action="open-recovery-guide"><span class="recovery-result-icon">!</span><span>만약 보이스피싱을 당했다면?</span><span class="recovery-result-arrow">›</span></button><p class="result-credit">Made by 우체국금융개발원 청년인턴 손대성</p>`;
       if(accuracy<50) {
         const medal=document.querySelector("#result-content .rank-medal");
         const character=medal?.querySelector("img");

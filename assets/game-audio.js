@@ -1,4 +1,4 @@
-/* Original music and UI sounds for the voice-phishing prevention game. */
+/* Synthesized music and UI sounds for the voice-phishing prevention game. */
 (() => {
   'use strict';
   const assetBase = new URL('./audio/', document.currentScript.src);
@@ -19,7 +19,7 @@
   let screen = 'landing', desired = 'hero', speaking = false, initialized = false;
   let unavailable = false, musicError = false, prefetched = false, lastEffectAt = -1;
   const buffers = new Map(), pending = new Map(), tracks = new Map(), voices = new Set();
-  const files = { hero: 'hero-theme.mp3', calm: 'calm-focus.mp3' };
+  const files = { hero: 'hero-theme.mp3', calm: 'calm-focus.mp3', easy: 'moonlight-pursuit.mp3', hard: 'bumblebee-chase.mp3' };
   const audible = () => !settings.muted && !document.hidden;
   const musicWanted = () => audible() && settings.music > 0;
   const glide = (param, value, seconds = .15) => {
@@ -42,7 +42,7 @@
       musicBus.connect(master); effectsBus.connect(master);
       master.connect(compressor); compressor.connect(ctx.destination);
       master.gain.value = audible() ? 1 : 0;
-      musicBus.gain.value = settings.music * (speaking ? .16 : 1);
+      musicBus.gain.value = speaking ? 0 : settings.music;
       effectsBus.gain.value = settings.effects * .6;
       ctx.addEventListener('statechange', () => { if (ctx.state === 'running') syncMusic(); updateUI(); });
     } catch (_) { unavailable = true; updateUI(); }
@@ -78,7 +78,12 @@
   function syncMusic() {
     if (!ctx || ctx.state !== 'running') return;
     glide(master.gain, audible() ? 1 : 0, .07);
-    glide(musicBus.gain, settings.music * (speaking ? .16 : 1), speaking ? .12 : .55);
+    // Cut the entire music bus (including crossfades and recorded reverb) before
+    // speech starts. Keep the loop running silently so it resumes in place.
+    if (speaking) {
+      musicBus.gain.cancelScheduledValues(ctx.currentTime);
+      musicBus.gain.setValueAtTime(0, ctx.currentTime);
+    } else glide(musicBus.gain, settings.music, .55);
     glide(effectsBus.gain, settings.effects * .6, .05);
     if (!musicWanted()) { for (const name of [...tracks.keys()]) stopTrack(name, .12); return; }
     const name = desired;
@@ -97,7 +102,7 @@
     source.onended = () => { source.disconnect(); gain.disconnect(); if (tracks.get(name) === track) tracks.delete(name); };
     for (const other of [...tracks.keys()]) if (other !== name) stopTrack(other);
     source.start(); glide(gain.gain, 1, .9);
-    if (!prefetched) { prefetched = true; loadTrack(name === 'hero' ? 'calm' : 'hero'); }
+    if (!prefetched) { prefetched = true; loadTrack(name === 'hero' ? 'easy' : 'hero'); }
     updateUI();
   }
 
@@ -108,9 +113,10 @@
     else syncMusic();
   }
 
-  function setScreen(name) {
+  function setScreen(name, mode = 'easy') {
     screen = name;
-    desired = ['landing', 'mode', 'stage-select'].includes(name) ? 'hero' : 'calm';
+    desired = name === 'game' ? (mode === 'hard' ? 'hard' : 'easy')
+      : ['landing', 'mode', 'stage-select'].includes(name) ? 'hero' : 'calm';
     document.getElementById('sound-tools')?.setAttribute('data-audio-screen', name);
     if (ctx) syncMusic();
   }
@@ -204,7 +210,7 @@
       : settings.muted ? '음악과 효과음이 꺼져 있어요.'
       : musicError ? '음악을 불러오지 못했어요. 소리를 다시 켜 주세요.'
       : !ctx || ctx.state !== 'running' ? '화면을 터치하면 음악이 시작돼요.'
-      : speaking ? '통화가 잘 들리도록 음악을 줄였어요.' : '음악과 효과음 크기를 조절할 수 있어요.';
+      : speaking ? '통화 재생 중에는 배경음악이 잠시 꺼져요.' : '음악과 효과음 크기를 조절할 수 있어요.';
     for (const key of ['music', 'effects']) {
       const range = document.getElementById('sound-' + key), output = document.getElementById('sound-' + key + '-value');
       if (range) range.value = Math.round(settings[key] * 100);

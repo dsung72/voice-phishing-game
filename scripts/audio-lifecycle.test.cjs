@@ -70,12 +70,27 @@ function setup(saved=null, supported=true) {
   assert(g.effects().length>=3,'first gesture plays its effect after unlock');
   assert(g.downloads.every(url=>url.startsWith('https://example.test/game/assets/audio/')),'subpath URLs');
   g.tick();g.audio.setScreen('game');await flush();
-  assert.equal(g.music().length,1);assert.equal(g.music()[0].buffer.name,'calm-focus.mp3');
+  assert.equal(g.music().length,1);assert.equal(g.music()[0].buffer.name,'moonlight-pursuit.mp3');
   const calm=g.music()[0];g.audio.setScreen('game');g.audio.setSpeaking(true);
   assert.equal(g.music()[0],calm,'same scene does not restart the music');
   const musicBus=calm.target.target;
-  assert.equal(musicBus.gain.value,.65*.16,'speech ducks the music');
+  assert.equal(musicBus.gain.value,0,'speech completely mutes the music');
   g.audio.setSpeaking(false);assert.equal(musicBus.gain.value,.65,'speech stop restores music');
+  for(const mode of ['practice','voice-audio','easy']) {
+    g.audio.setScreen('game',mode);await flush();
+    assert.equal(g.music()[0],calm,'easy and all practice modes share one uninterrupted loop');
+  }
+  g.audio.setScreen('game','hard');await flush();
+  assert.equal(g.music().length,1);assert.equal(g.music()[0].buffer.name,'bumblebee-chase.mp3');
+  g.audio.setSpeaking(true);
+  g.elements.get('sound-music').fire('input',{target:{value:'80'}});
+  assert.equal(musicBus.gain.value,0,'volume changes never unmute active speech');
+  g.document.hidden=true;g.document.fire('visibilitychange');await flush();
+  g.document.hidden=false;g.document.fire('visibilitychange');await flush();
+  assert.equal(musicBus.gain.value,0,'background resume keeps active speech silent');
+  g.audio.setSpeaking(false);assert.equal(musicBus.gain.value,.8,'speech end restores latest selected volume');
+  g.audio.setScreen('result','hard');await flush();
+  assert.equal(g.music()[0].buffer.name,'calm-focus.mp3','results leave urgent gameplay music');
   const before=g.effects().length;g.tick();g.audio.effect('click');g.audio.effect('complete');
   assert(g.effects().length>=before+7,'completion is not throttled by a preceding click');
   g.elements.get('sound-mute').fire('click');await flush();
@@ -91,7 +106,12 @@ function setup(saved=null, supported=true) {
   const persisted=setup({music:0,effects:.7,muted:false});persisted.audio.init();persisted.activate();await flush();assert.equal(persisted.music().length,0,'zero volume survives reload');
   const muted=setup({music:.65,effects:.7,muted:true});muted.audio.init();muted.activate();await flush();assert.equal(muted.contexts.length,0,'saved mute prevents autoplay');
   const unsupported=setup(null,false);unsupported.audio.init();unsupported.audio.effect('click');assert(unsupported.elements.get('sound-status').textContent.includes('지원하지'));
-  const race=setup();race.audio.init();race.activate();race.audio.setScreen('game');race.audio.setScreen('landing');await flush();
+  const race=setup();race.audio.init();race.activate();race.audio.setScreen('game','easy');race.audio.setScreen('game','hard');race.audio.setScreen('landing');await flush();
   assert.equal(race.music().length,1);assert.equal(race.music()[0].buffer.name,'hero-theme.mp3','late decode follows latest screen');
-  console.log('PASS: autoplay, first-click effect, crossfade, speech ducking, completion, mute, persisted zero, background resume, unsupported audio, async scene race');
+  const speechFirst=setup();speechFirst.audio.setScreen('game','voice-audio');speechFirst.audio.setSpeaking(true);
+  speechFirst.audio.init();speechFirst.activate();await flush();
+  assert.equal(speechFirst.music()[0].target.target.gain.value,0,'speech before activation or download stays silent');
+  speechFirst.audio.setSpeaking(false);
+  assert.equal(speechFirst.music()[0].target.target.gain.value,.65,'early speech completion restores volume');
+  console.log('PASS: autoplay, first-click effect, crossfade, full speech mute, mode selection, speech volume changes, completion, mute, persisted zero, background resume, unsupported audio, async scene race');
 })().catch(e=>{console.error(e);process.exitCode=1});
