@@ -116,11 +116,16 @@
     .eyebrow { margin: 0 0 12px; color: var(--brand-red); font-size: 13px; font-weight: 900; letter-spacing: .08em; }
     h1, h2, h3, p { margin-top: 0; }
     .hero-title { width:fit-content; margin:0 auto 20px; color:#2d343c; font-family:"Paperlogy","Arial Black",sans-serif; font-size:clamp(31px,calc(8.3vw / var(--ui-scale)),43px); line-height:1.05; letter-spacing:-.075em; font-weight:950; text-align:center; filter:drop-shadow(0 7px 10px rgba(239,70,42,.1)); }
-    .hero-voice { position:relative; display:block; padding:2px 11px 8px 2px; background:linear-gradient(105deg,#f58220 2%,#f15a24 45%,#ed2e32 96%); -webkit-background-clip:text; background-clip:text; color:transparent; font-size:1.3em; font-style:italic; letter-spacing:-.09em; transform:rotate(-3deg) skewX(-7deg); transform-origin:center; -webkit-text-stroke:.35px rgba(226,54,41,.38); }
+    .hero-voice { position:relative; display:block; padding:2px 11px 8px 2px; background:linear-gradient(105deg,#f58220 2%,#f15a24 45%,#ed2e32 96%); -webkit-background-clip:text; background-clip:text; color:transparent; font-size:1.13em; font-style:italic; letter-spacing:-.09em; transform:rotate(-3deg) skewX(-7deg); transform-origin:center; -webkit-text-stroke:.35px rgba(226,54,41,.38); }
     .hero-voice::after { content:""; position:absolute; left:7%; right:1%; bottom:1px; height:6px; border-radius:80% 18% 75% 20%; background:linear-gradient(90deg,#f58220,#ed2e32); opacity:.9; transform:rotate(-1.5deg) skewX(-18deg); }
-    .hero-game { display:block; margin-top:10px; color:#343b43; font-size:clamp(17px,.52em,23px); line-height:1.4; font-weight:700; letter-spacing:-.03em; }
-    .landing-visual { position:relative; width:100%; min-height:0; height:auto; display:grid; place-items:center; margin:0 auto; padding:10px 0 14px; flex:1 0 auto; overflow:hidden; }
-    .landing-hero-image { display:block; width:100%; max-width:472px; height:auto; object-fit:contain; object-position:center; }
+    .hero-game { display:block; margin-top:3px; color:#343b43; font-size:.78em; letter-spacing:-.055em; transform:rotate(1.2deg); }
+    .hero-desc { margin: 0 auto; max-width: 330px; color: #6b7684; font-size: 16px; line-height: 1.65; letter-spacing: -.02em; }
+    .landing-visual { position: relative; width: 100%; min-height: clamp(230px,calc(31.5vh / var(--ui-scale)),304px); height: auto; display: grid; place-items: center; margin: -8px auto -8px; flex: 1 1 auto; overflow: visible; }
+    .landing-visual::before, .landing-visual::after { position: absolute; }
+    .landing-visual::before { width: 88px; height: 88px; left: 2px; top: 52px; background: #fff0e8; opacity: .9; }
+    .landing-visual::before { content:""; border-radius:50%; }
+    .landing-visual::after { content:"이름 : 포시드맨  ✦"; z-index:4; right:clamp(36px,9vw,68px); top:18%; width:auto; height:auto; padding:7px 10px 8px; border:1px solid #ffd6a0; border-radius:14px 14px 14px 5px; color:#d95724; background:#fff9ed; box-shadow:0 7px 16px rgba(216,91,36,.12); font-size:11px; line-height:1; font-weight:900; letter-spacing:-.03em; white-space:nowrap; transform:rotate(-5deg); }
+    .landing-hero-image { position: relative; z-index: 2; display: block; width: auto; height: clamp(264px,calc(37.2vh / var(--ui-scale)),360px); max-width: 96%; max-height: 100%; object-fit: contain; object-position: center center; filter: none; transform: translateY(-7px); }
     .money-card {
       position: relative;
       overflow: hidden;
@@ -1129,6 +1134,8 @@
       .landing { padding-top:max(16px,env(safe-area-inset-top)); }
       .hero-copy { padding:18px 0 6px; }
       .hero-title { margin-bottom:10px; font-size:clamp(28px,calc(7.5vw / var(--ui-scale)),36px); }
+      .hero-desc { font-size:14px; line-height:1.5; }
+      .landing-visual { width:100%; min-height:215px; height:auto; margin:-8px auto -8px; }
       .landing-actions { padding-top:8px; }
       .practice-guide-backdrop { padding:16px; }
       .practice-guide-card { padding:20px; }
