@@ -70,7 +70,7 @@ function setup(saved=null, supported=true) {
   assert(g.effects().length>=3,'first gesture plays its effect after unlock');
   assert(g.downloads.every(url=>url.startsWith('https://example.test/game/assets/audio/')),'subpath URLs');
   g.tick();g.audio.setScreen('game');await flush();
-  assert.equal(g.music().length,1);assert.equal(g.music()[0].buffer.name,'moonlight-pursuit.mp3');
+  assert.equal(g.music().length,1);assert.equal(g.music()[0].buffer.name,'turkish-march.mp3');
   const calm=g.music()[0];g.audio.setScreen('game');g.audio.setSpeaking(true);
   assert.equal(g.music()[0],calm,'same scene does not restart the music');
   const musicBus=calm.target.target;

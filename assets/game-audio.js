@@ -19,7 +19,7 @@
   let screen = 'landing', desired = 'hero', speaking = false, initialized = false;
   let unavailable = false, musicError = false, prefetched = false, lastEffectAt = -1;
   const buffers = new Map(), pending = new Map(), tracks = new Map(), voices = new Set();
-  const files = { hero: 'hero-theme.mp3', calm: 'calm-focus.mp3', easy: 'moonlight-pursuit.mp3', hard: 'bumblebee-chase.mp3' };
+  const files = { hero: 'hero-theme.mp3', calm: 'calm-focus.mp3', easy: 'turkish-march.mp3', hard: 'bumblebee-chase.mp3' };
   const audible = () => !settings.muted && !document.hidden;
   const musicWanted = () => audible() && settings.music > 0;
   const glide = (param, value, seconds = .15) => {
